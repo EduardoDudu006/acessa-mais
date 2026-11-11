@@ -6,7 +6,34 @@ require('dotenv').config();
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+const cors = require('cors');
+app.use(cors()); // Permite que o Frontend hospedado na Vercel se comunique com a API no Render
+
+const swaggerUi = require("swagger-ui-express");
+const swaggerJsdoc = require("swagger-jsdoc");
+
+// Configuração do Swagger
+const options = {
+    definition: {
+        openapi: "3.0.0",
+        info: {
+            title: "API REST - ACESSA+",
+            version: "1.0.0",
+            description:
+                "Documentação da API de mobilidade urbana e acessibilidade de Recife-PE",
+        },
+        servers: [
+            {
+                url: "https://seu-servico-no-render.onrender.com/api",
+                description: "Servidor de Produção (Render)",
+            },
+        ],
+    },
+    apis: ["./server.js"],
+};
+
+const specs = swaggerJsdoc(options);
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 // Conexão com o Banco de Dados PostgreSQL (Render)
 const pool = new Pool({
