@@ -1,0 +1,13 @@
+{
+    "expo": {
+        "name": "ACESSA+",
+        "slug": "acessa-mais",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/logo-completo.png",
+        "userInterfaceStyle": "light",
+        "web": {
+            "favicon": "./assets/logo-completo.png"
+        }
+    }
+}
